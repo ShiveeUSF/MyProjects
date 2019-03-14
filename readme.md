@@ -14,6 +14,8 @@ Tianqi Wang
 - Model Fitting 
 - Results
 
+### Link to code base: https://github.com/tianqwang/MSDS621-Final-Project
+
 ![alt text](https://github.com/tianqwang/MSDS621-Final-Project/blob/master/image/Power-In-Positivity.jpg?raw=true)
 
 ### Dataset Overview
