@@ -1,2 +1,3 @@
-# Projects pertaining to - machine learning, web scraping, text mining, time series modeling and problem solving using python.
-Projects done during my Masters in Data Science
+# Implementing Isolation Forest algorithm from scratch. 
+
+This is a super powerful technique to efficiently and detect anomalies in the data and has useful applications in many domains such as healthcare, cybersecurity and finance.
