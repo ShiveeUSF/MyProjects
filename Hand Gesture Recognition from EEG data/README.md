@@ -1,6 +1,5 @@
 # Recognize hand gesture using EEG signals
 
-Problem:
 Patients who have lost hand function due to amputation or neurological disabilities have a hard time performing simple tasks that involve lifting or grasping an object. Restoring a patient's ability to perform basic activities of daily life with a brain-computer interface (BCI) prosthetic device could greatly increase their independence and quality of life. 
 
 Electroencephalography (EEG) is a noninvasive and inexpensive means of monitoring brain activity that holds potential to solve this problem but there are a few challenges. The relationship between brain activity and EEG signals is complex and poorly understood outside of specific laboratory tests. Moreover due to the high velocity nature of EEG recordings, the data used in such a classification are often large and may take a long time to process on a local, non-distributed computer. 
