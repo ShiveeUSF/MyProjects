@@ -1,2 +1,3 @@
-# Projects pertaining to - Machine learning, Deep Learning, Web scraping, Text mining and Time series modeling.
+# Machine Learning, Deep Learning, Text Mining, EDA, Web App, Time Series and Coding Problems.
+
 
