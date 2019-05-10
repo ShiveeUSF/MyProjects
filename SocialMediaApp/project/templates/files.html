@@ -1,0 +1,105 @@
+{% extends "bootstrap/base.html" %}
+{% block html_attribs %} lang="en"{% endblock %}
+{% block title %}S3 Object List{% endblock %}
+
+{% block head %}
+{{super()}}
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/fontawesome.css"> 
+
+<!-- mobirise CSS -->
+<link rel="stylesheet" href="../static/assets/web/assets/mobirise-icons/mobirise-icons.css">
+<link rel="stylesheet" href="../static/assets/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="../static/assets/dropdown/css/style.css">
+<link rel="stylesheet" href="../static/assets/mobirise/css/mbr-additional.css" type="text/css">
+<link rel="shortcut icon" type="/image/png" href="{{ url_for('static',filename='img/logo.png') }}" />
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/upload_style.css') }}">
+{% endblock %}
+
+{% block body %}
+<section class="menu cid-qTkzRZLJNu" once="menu" id="menu1-4">
+    <nav class="navbar navbar-expand beta-menu navbar-dropdown align-items-center navbar-fixed-top navbar-toggleable-sm" style="background-color:#563d7c">
+        <a href="/">
+                    <img src="../static/assets/images/logo.png" style="height: 3.6rem; margin-left:50px">
+                    <a href="/"> 
+                    <img src="../static/assets/images/logo_text.png" style="height: 3.6rem;"
+                    > 
+        </a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </button>
+<!--         <div class="menu-logo">
+            <div class="navbar-brand">
+                <span class="navbar-logo">
+                    <a href="/">
+                            <img src="../static/assets/images/logo.png" style="height: 3.6rem;">
+                    </a>
+                </span>
+            </div>
+        </div> -->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav nav-dropdown nav-right" data-app-modern-menu="true"><li class="nav-item">
+                    <a class="nav-link link text-white display-4" href="/user_home/{{ uuid }}">
+                        <span class="mbri-home mbr-iconfont mbr-iconfont-btn"></span>
+                        User Home
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link link text-white display-4" href="/upload">
+                        Upload
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link link text-white display-4" href="/poll" >
+                        Poll
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+</section>
+
+<section class="bulk">
+    <div class="container">
+        <div class="col-12-xs">
+            <h3>Files Uploaded</h3>
+            <p>Created: {{ my_bucket.creation_date | datetimeformat }}</p>
+            <hr>
+
+            <table class="table table-striped">
+                <tr>
+                    <th>Filename</th>
+                    <th>Last Modified</th>
+                    <th>Type</th>
+                    <th></th>
+                </tr>
+                {% for f in files %}
+                <tr>
+                    <td>{{ f.key | file_name }}</td>
+                    <td>{{ f.last_modified | datetimeformat }}</td>
+                    <td>{{ f.key | file_type }}</td>
+                    <td class="td-buttons">
+                        <a href="/download/{{ f.key }}">
+                            <button type="submit" class="btn btn-default btn-sm">
+                                <i class="fa fa-download"></i>
+                            </button>
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</section>
+
+<!-- mobirise Scripts -->
+<script src="../static/assets/web/assets/jquery/jquery.min.js"></script>
+<script src="../static/assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="../static/assets/dropdown/js/script.min.js"></script>
+{% endblock %}

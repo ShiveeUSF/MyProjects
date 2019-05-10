@@ -1,0 +1,197 @@
+{% extends "bootstrap/base.html" %}
+{% block html_attribs %} lang="en"{% endblock %}
+{% block title %}User Home{% endblock %}
+
+{% block head %}
+  {{super()}}
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Mobirise v4.9.7, mobirise.com">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+  <link rel="shortcut icon" href="../static/assets/images/logo.png" type="image/x-icon">
+  <meta name="description" content="Website Creator Description">
+
+  <title>AorB</title>
+  
+  <link rel='stylesheet' href='https://unpkg.com/font-awesome@4.7.0/css/font-awesome.min.css'>
+  <link rel='stylesheet' href='https://unpkg.com/bootstrap@4.0.0/dist/css/bootstrap.css'>
+  <link rel="stylesheet" href="../static/assets/web/assets/mobirise-icons/mobirise-icons.css">
+  <link rel="stylesheet" href="../static/assets/dropdown/css/style.css">
+  <link rel="stylesheet" href="../static/assets/mobirise/css/mbr-additional.css" type="text/css">
+  <link rel="stylesheet" href="../static/styles/user_home_style.css">
+{% endblock %}
+
+{% block body %}
+<section class="menu cid-qTkzRZLJNu" once="menu" id="head">
+   <nav class="navbar navbar-expand beta-menu navbar-dropdown align-items-center navbar-fixed-top navbar-toggleable-sm" style="background-color:#563d7c">
+      <a href="/">
+          <img src="../static/assets/images/logo.png" style="height: 3.6rem; margin-left:50px">
+          <a href="/"> 
+          <img src="../static/assets/images/logo_text.png" style="height: 3.6rem;"> 
+      </a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <div class="hamburger">
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+          </div>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav nav-dropdown nav-right" data-app-modern-menu="true">
+              <li class="nav-item">
+                  <a class="nav-link link text-white display-4" href="/files">
+                      <span class="mbri-home mbr-iconfont mbr-iconfont-btn"></span>
+                      Files
+                  </a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link link text-white display-4" href="/upload" >
+                      Upload
+                  </a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link link text-white display-4" href="/logout" >
+                      Logout
+                  </a>
+              </li>
+          </ul>
+      </div>
+   </nav>
+</section>
+
+<!-- header image -->
+<div class="card border-0 bg-light text-white">
+  <img class='card-img-top img-rounded' src="../static/img/user_home_bg9.jpg" >
+  <div class='card-img-top-overlay'>
+
+  <br />
+  <div class="container">
+      <div class="content">
+          <!-- flash messages-->
+          {% for error_message in get_flashed_messages(category_filter=["error"]) %}
+          <div class="alert alert-danger alert-dismissible" role="alert">{{ error_message }}
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          {% endfor %}
+  
+          {% for success_message in get_flashed_messages(category_filter=["success"]) %}
+          <div class="alert alert-success alert-dismissible" role="alert">{{ success_message }}
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          {% endfor %}
+  
+          {% for info_message in get_flashed_messages(category_filter=["info"]) %}
+          <div class="alert alert-info alert-admissible" role="alert">{{ info_message }}
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          {% endfor %}
+      </div>
+  </div>
+
+<!-- history polls -->
+<div class="card border-0" style="background-color: #f7f7f9; color:#656765;">
+  <div class="container-fluid">
+    <h2 class="text-center my-3">History</h2>
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+
+      <div class="carousel-inner row w-100 mx-auto">
+        {% for text in poll_texts %}
+        <div class="carousel-item col-md-4 {% if loop.index==1 %}active{% endif %}">
+          <div class="card border-0" style="background-color: #f7f7f9;">
+            <div class="card-body">
+              <p class="card-text">{{ text }}</p>
+              <div class="row">
+                {% for path in poll_images[loop.index0] %}
+                    <div class="col">
+                      <img class="card-img-top img-thumbnail border-0" style="height:200px; width:220px" src="{{ path }}" alt="poll image">
+                    </div>
+                {% endfor %}
+              </div>
+              <div class="card-footer text-center border-0" style="background-color: #f7f7f9;">
+                  <a class="btn btn-sm" style="height:20px; width:150px; background-color:#563d7c; color:white;"  href="{{ '../poll_vote/' + poll_uuid[loop.index0] }}" role="button">see result</a>
+              </div>
+                <small class="text" style="color:#656765;">{{ poll_dates[loop.index0] | datetimeformat }}</small>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      
+      <div class="container">
+        <div class="row">
+            <div class="col-12 text-center mt-4">
+              <a class="btn btn-sm mx-1 prev" href="javascript:void(0)" title="Previous">
+                <i class="fa fa-caret-left" style="color:#c8cbce; font-size:28px"></i>
+              </a>
+              <a class="btn btn-sm mx-1 next" href="javascript:void(0)" title="Next">
+                <i class="fa fa-caret-right" style="color:#c8cbce; font-size:28px"></i>
+              </a>
+            </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div> 
+
+<!-- recommended polls -->
+<div class="card border-0" style="background-color: white; color:#656765;">
+  <div class="container-fluid">
+    <h2 class="text-center my-3">Recommendation</h2>
+    <div id="myCarousel1" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner row w-100 mx-auto">
+
+          {% for text in poll_r_texts %}
+          <div class="carousel-item col-md-4 {% if loop.index==1 %}active{% endif %}">
+            <div class="card border-0" style="background-color:white;">
+              <div class="card-body">
+                <p class="card-text">{{ text }}</p>
+                <div class="row">
+                  {% for path in poll_r_images[loop.index0] %}
+                      <div class="col">
+                        <img class="card-img-top img-thumbnail border-0" style="height:200px; width:220px" src="{{ path }}" alt="poll image">
+                      </div>
+                  {% endfor %}
+                </div>
+                <div class="card-footer text-center border-0" style="background-color: white;">
+                    <a class="btn btn-sm" style="height:20px; width:150px; background-color:#563d7c; color:white;"  href="{{ '../poll_vote/' + poll_r_uuid[loop.index0] }}" role="button">check it out</a>
+                </div>
+                  <small class="text" style="color:#656765;">{{ poll_r_dates[loop.index0] | datetimeformat }}</small>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+
+        <div class="container">
+          <div class="row">
+            <div class="col-12 text-center mt-4">
+              <a class="btn btn-sm mx-1 prev" href="javascript:void(0)" title="Previous">
+                <i class="fa fa-caret-left" style="color:#c8cbce; font-size:28px;"></i>
+              </a>
+              <a class="btn btn-sm mx-1 next" href="javascript:void(0)" title="Next">
+                <i class="fa fa-caret-right" style="color:#c8cbce; font-size:28px"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+    </div>
+  </div>
+</div>
+
+</div>
+</div>
+
+  <script src='https://code.jquery.com/jquery-1.12.4.min.js'></script>
+  <script src='https://unpkg.com/popper.js@1.12.9/dist/umd/popper.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/js/bootstrap.min.js'></script>
+  <script src="../static/js/user_home.js"></script>
+{% endblock %}

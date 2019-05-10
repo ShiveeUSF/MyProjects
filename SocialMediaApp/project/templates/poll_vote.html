@@ -1,0 +1,176 @@
+{% extends "bootstrap/base.html" %}
+{% block html_attribs %} lang="en"{% endblock %}
+{% block title %}Poll{% endblock %}
+
+{% block head %}
+    {{super()}}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="generator" content="Mobirise v4.9.7, mobirise.com">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+    <link rel="shortcut icon" href="../static/assets/images/logo.png" type="image/x-icon">
+    <meta name="description" content="Website Creator Description">
+
+    <title>AorB</title>
+
+    <!-- mobirise CSS -->
+    <link rel="stylesheet" href="../static/assets/web/assets/mobirise-icons/mobirise-icons.css">
+    <link rel="stylesheet" href="../static/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/assets/dropdown/css/style.css">
+    <link rel="stylesheet" href="../static/assets/mobirise/css/mbr-additional.css" type="text/css">
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/poll_style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.4.3.min.js"></script>
+{% endblock %}
+
+{% block body %}
+<section class="menu cid-qTkzRZLJNu" once="menu" id="head">
+        <nav class="navbar navbar-expand beta-menu navbar-dropdown align-items-center navbar-fixed-top navbar-toggleable-sm" style="background-color:#563d7c">
+            <a href="/">
+                    <img src="../static/assets/images/logo.png" style="height: 3.6rem; margin-left:50px">
+                    <a href="/"> 
+                    <img src="../static/assets/images/logo_text.png" style="height: 3.6rem;"
+                    > 
+            </a>
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav nav-dropdown nav-right" data-app-modern-menu="true">
+                    <li class="nav-item">
+                        <a class="nav-link link text-white display-4" href="/user_home/{{ uuid }}">
+                            <span class="mbri-home mbr-iconfont mbr-iconfont-btn"></span>
+                            User Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link link text-white display-4" href="/upload" >
+                            Upload
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link link text-white display-4" href="/logout" >
+                            Logout
+                        </a>
+                    </li>
+                </ul>
+    
+            </div>
+        </nav>
+</section>
+
+    <div class="card bg-light border-0" style="color:#563d7c">
+      <img class='card-img-top img-rounded' src="../static/img/vote_bg3.jpg" >
+      <div class='card-img-overlay'>
+
+        <br />
+        <div class="container">
+            <div class="content">
+                <!-- flash messages-->
+                {% for error_message in get_flashed_messages(category_filter=["error"]) %}
+                <div class="alert alert-danger alert-dismissible" role="alert">{{ error_message }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                {% endfor %}
+        
+                {% for success_message in get_flashed_messages(category_filter=["success"]) %}
+                <div class="alert alert-success alert-dismissible" role="alert">{{ success_message }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                {% endfor %}
+        
+                {% for info_message in get_flashed_messages(category_filter=["info"]) %}
+                <div class="alert alert-info alert-admissible" role="alert">{{ info_message }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    
+            <div class="container-fluid">
+                <div class="row justify-content-center mt-4" >
+                    <h2>{{ poll_text }}</h2>
+                </div>
+
+                <!-- call images with -->
+                <div class="row justify-content-center mt-4">
+                    {% for path in poll_images %}
+                        <div class="col-md-3">
+                            <div class="card text-center border-0">
+                                <img src="{{ path }}" class="card-img-top" style="height: 18rem;">
+                                <div class="card-body"></div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+                <!-- vote buttons -->
+                <div class="row justify-content-center mt-8">
+                    {% for path in poll_images %}
+                    <span class="col-12 col-md-3" style="text-align: center;">
+                        <a href="/upvote/{{ poll_uuid }}/{{ loop.index }}">
+                            <button type="submit"
+                                    id = "btn{{ loop.inbdex }}"
+                                    class="btn">
+                                    <i class="fa fa-heart w3-text-pink" style="font-size:30px"></i>
+                            </button>
+                        </a>
+
+                        <div>{{ poll_votes[loop.index0] }}</div>
+                    </span>
+                    {% endfor %}
+                </div>
+
+                <div class="row justify-content-center mt-4">
+                    <h6><span class="input-group-text badge-secondary border-0 mr-2">Tags</span></h6>
+                    {% for tag in poll_usertags %}
+                        <h6><span class="input-group-text badge-light border-0 mr-2">{{ tag }}</span></h6>
+                    {% endfor %}
+                    {% for tag in poll_modeltags %}
+                        <h6><span class="input-group-text badge-light border-0 mr-2">{{ tag }}</span></h6>
+                    {% endfor %}
+                </div>
+        </div>
+    </div>
+
+    <!-- mobirise scripts -->
+    <script src="../static/assets/web/assets/jquery/jquery.min.js"></script>
+    <script src="../static/assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../static/assets/dropdown/js/script.min.js"></script>
+    <script src="../static/assets/bootstrapcarouselswipe/bootstrap-carousel-swipe.js"></script>
+    <script src="../static/assets/touchswipe/jquery.touch-swipe.min.js"></script>
+
+    <!-- custom scripts -->
+    <!-- <script type='text/javascript'>
+        var cnt = '{{ item_cnt }}';
+        var poll_uuid = '{{ poll_uuid }}';
+        var arr = [];
+        for (var i = 0; i < cnt; i++) {
+            arr.push(i+1);
+        };
+        $.each(arr, function(i, val) {
+            $('#btn'+val).click(function() {
+                console.log('button clicked!')
+                $.post("/upvote/" + poll_uuid + "/" + i, function( data ) {
+                    alert(data);
+                    // window.location.reload();
+                });
+            });
+        });
+    </script> -->
+        
+{% endblock %}
